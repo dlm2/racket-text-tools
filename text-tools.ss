@@ -8,11 +8,13 @@
          scheme
 (provide
      expand-template
-     ;; :here
+     format-text-to-width
      )
 
 (require "std.ss")
+(require "segm-tools.ss")
 
+;;/------------------------------------------------------------------
 (define (expand-template 
     template 
     key/val-alist 
@@ -76,5 +78,10 @@
                 (loop  (cdr lst)  (cons line store))
                 (loop  (cdr lst)  (cons (expand line m)  store)))))) ))
 
+;;/------------------------------------------------------------------
+(define (format-text-to-width text width)
+    (tagged-segms->width-formatted-lines
+        (text->tagged-segms text)
+        width))
 
 );| module

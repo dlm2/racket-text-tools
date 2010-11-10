@@ -9,17 +9,21 @@
 (provide
      ;;| :abbreviations
      def-stx-rules
+     ƛ
+     not-eq?
      not-empty?
      nth
      str->sym
      num->str
      num->sym
+     str-len
      str+
      str+*
      substr
      str-join
      str-join/nl
-     ;; :here
+     list->str
+     str->list
      )
 
 (define-syntax def-stx-rules
@@ -30,6 +34,12 @@
                  body ...
                  ))]))
 
+(def-stx-rules ƛ ()  [(_ a b ...)  (lambda a b ...) ])
+
+(define-syntax not-eq?
+  (syntax-rules ()
+    [(_ a b)   (not (eq? a b))]))
+
 (define-syntax not-empty?
   (syntax-rules ()
     [(_ a)   (not (empty? a))]))
@@ -39,16 +49,27 @@
     ([_ i lst]    [list-ref lst i])))
 
 (define str->sym     string->symbol)
+
 (define num->str     number->string)
   (def-stx-rules num->sym ()
     [(_ $a)  (str->sym (num->str $a))])
+
+(define str-len      string-length)
+
 (define str+         string-append)
+
 (define str+*        string-append*)
+
 (define substr       substring)
+
 (define str-join     string-join)
+
 (define-syntax str-join/nl
   (syntax-rules ()
     [(_ lst)      (string-join lst "\n")]))
 
+(define list->str  list->string)
+
+(define str->list  string->list)
 
 );| module

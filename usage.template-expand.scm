@@ -25,7 +25,10 @@
 
 (define (example-2)
   ;;| Use #:VAR-REGEXP parameter to change regexp used to identify
-  ;;|  template variables.
+  ;;| template variables.
+  ;;| The regexp must be be one which has one and only one grouping.
+  ;;| The grouping match is used to seperate the the var/identifier from
+  ;;| any escape/delimiter characters.
   (define memo-format-2
     (str-join/nl 
      '("FROM     : $from"
